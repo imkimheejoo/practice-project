@@ -32,6 +32,11 @@ public class Posts {
         this.author = author;
     }
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
