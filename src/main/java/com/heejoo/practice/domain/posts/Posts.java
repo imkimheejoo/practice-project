@@ -1,5 +1,6 @@
 package com.heejoo.practice.domain.posts;
 
+import com.heejoo.practice.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // auto_increment
