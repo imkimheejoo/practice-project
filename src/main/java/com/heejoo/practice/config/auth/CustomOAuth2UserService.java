@@ -42,6 +42,9 @@ public class CustomOAuth2UserService implements OAuth2UserService {
     }
 
     private User saveOrUpdate(OAuthAttributes attributes) {
+        /**
+         * 구글/네이버에서 회원정보를 수정했을 경우를 대비한 코드
+         */
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
