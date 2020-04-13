@@ -5,13 +5,10 @@ import com.heejoo.practice.config.auth.dto.SessionUser;
 import com.heejoo.practice.service.PostsService;
 import com.heejoo.practice.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,7 +20,7 @@ public class IndexController {
     public String index(@LoginUser SessionUser loggedInUser, Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        if(loggedInUser != null) {
+        if (loggedInUser != null) {
             model.addAttribute("userName", loggedInUser.getName());
         }
         return "index";
