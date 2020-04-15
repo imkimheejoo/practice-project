@@ -5,8 +5,8 @@ import com.heejoo.practice.domain.posts.Posts;
 import com.heejoo.practice.domain.posts.PostsRepository;
 import com.heejoo.practice.web.dto.PostsSaveRequestDto;
 import com.heejoo.practice.web.dto.PostsUpdateRequestDto;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -19,19 +19,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-class PostsApiControllerTest extends MockMvcTemplate {
+public class PostsApiControllerTest extends MockMvcTemplate {
 
     @Autowired
     private PostsRepository postsRepository;
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
         postsRepository.deleteAll();
     }
 
     @WithMockUser(roles = "USER")
     @Test
-    void Posts_등록된다() throws Exception {
+    public void Posts_등록된다() throws Exception {
         //given
         String title = "title";
         String content = "content";
@@ -55,7 +55,7 @@ class PostsApiControllerTest extends MockMvcTemplate {
 
     @WithMockUser(roles = "USER")
     @Test
-    void Posts_수정된다() throws Exception {
+    public void Posts_수정된다() throws Exception {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
