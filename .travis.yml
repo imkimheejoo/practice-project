@@ -16,9 +16,13 @@ script: "./gradlew wrapper --gradle-version 5.6"
 
 # deploy 명령어가 실행되기 전 수행
 before_deploy:    # CodeDeploy는 Jar 파일을 인식 못하기 떄문에 Jar + 기타설정파일을 모아 압축
-  - zip -r practice-project *
-  - mkdir -p deploy # Travis CI가 실행 중인 위치에서 생성
-  - mv practice-project.zip deploy/practice-project.zip
+  - mkdir -p before-deploy #zip에 포함시킬 파일들을 담을 디렉토리 생성
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy *
+  - cd ../ && mkdir -p deploy
+  - mv before-deploy/before-deploy.zip deploy/practice-project.zip deploy/practice-project.zip
 
 # S3, CodeDeploy 같은 외부 서비스와 연동
 deploy:
