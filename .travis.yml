@@ -22,7 +22,7 @@ before_deploy:    # CodeDeploy는 Jar 파일을 인식 못하기 떄문에 Jar +
   - cp build/libs/*.jar before-deploy/
   - cd before-deploy && zip -r before-deploy *
   - cd ../ && mkdir -p deploy
-  - mv before-deploy/before-deploy.zip deploy/practice-project.zip deploy/practice-project.zip
+  - mv before-deploy/before-deploy.zip deploy/practice-project.zip
 
 # S3, CodeDeploy 같은 외부 서비스와 연동
 deploy:
