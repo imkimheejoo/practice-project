@@ -19,3 +19,21 @@ notifications:
   email:
     recipients:
       - ddkkmd@naver.com
+
+# deploy 명령어가 실행되기 전 수행
+before_deploy:    # CodeDeploy는 Jar 파일을 인식 못하기 떄문에 Jar + 기타설정파일을 모아 압축
+  - zip -r practice-project *
+  - mkdir -p deploy # Travis CI가 실행 중인 위치에서 생성
+  - mv practice-project.zip depoly/practice-project.zip
+
+# S3, CodeDeploy 같은 외부 서비스와 연동
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된값
+    secret_access_key: $AWS_SECRET_KEY #Travis repo settings에 설정된 값
+    bucket: practice-project-build # S3에서 설정한 버킷 이름
+    region: ap-northeast-2
+    skip_cleanup: false
+    acl: private #zip 파일 잡근 private
+    local_dir: deploy # before_deploy에서 생성한 dir, 해당 위치 파일들만 S3로 전송
+    wait-until-deploy: true
