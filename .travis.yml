@@ -28,7 +28,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY #Travis repo settings에 설정된 값
     bucket: practice-project-build # S3에서 설정한 버킷 이름
     region: ap-northeast-2
-    skip_cleanup: false
+    skip_cleanup: true
     acl: private #zip 파일 잡근 private
     local_dir: deploy # before_deploy에서 생성한 dir, 해당 위치 파일들만 S3로 전송
     wait-until-deploy: true
