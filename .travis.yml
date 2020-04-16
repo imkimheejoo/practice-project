@@ -20,7 +20,6 @@ before_deploy:    # CodeDeploy는 Jar 파일을 인식 못하기 떄문에 Jar +
   - mkdir -p deploy # Travis CI가 실행 중인 위치에서 생성
   - mv practice-project.zip deploy/practice-project.zip
 
-
 # S3, CodeDeploy 같은 외부 서비스와 연동
 deploy:
   - provider: s3
@@ -31,6 +30,17 @@ deploy:
     skip_cleanup: true
     acl: private #zip 파일 잡근 private
     local_dir: deploy # before_deploy에서 생성한 dir, 해당 위치 파일들만 S3로 전송
+    wait-until-deploy: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: practice-project-build
+    key: practice-project.zip
+    bundle_type: zip
+    application: practice-project
+    deployment_group: practice-project-group
+    region: ap-northeast-2
     wait-until-deploy: true
 
 #CI 실행 완료시 메일로 알림
