@@ -12,7 +12,7 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build"
+script: "./gradlew wrapper --gradle-version 5.6"
 
 #CI 실행 완료시 메일로 알림
 notifications:
